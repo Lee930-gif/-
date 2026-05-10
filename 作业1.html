@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小时候的文化记忆 - 动画</title>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(180deg, #b8d4f0 0%, #c9e3f8 30%, #d4e9fa 70%, #d4e9fa 100%);
+            min-height: 100vh;
+            font-family: 'ZCOOL KuaiLe', cursive;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 背景装饰 */
+        .bg-decoration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 黄色月亮 */
+        .moon {
+            position: absolute;
+            top: 60px;
+            right: 80px;
+            width: 100px;
+            height: 100px;
+            background: #FFFACD;
+            border-radius: 50%;
+            box-shadow:
+                0 0 20px rgba(255, 250, 205, 0.8),
+                0 0 40px rgba(255, 250, 205, 0.5),
+                inset -10px -10px 20px rgba(255, 230, 150, 0.3);
+            animation: moonGlow 4s infinite alternate;
+        }
+
+        @keyframes moonGlow {
+            from {
+                box-shadow:
+                    0 0 20px rgba(255, 250, 205, 0.8),
+                    0 0 40px rgba(255, 250, 205, 0.5);
+            }
+            to {
+                box-shadow:
+                    0 0 30px rgba(255, 250, 205, 1),
+                    0 0 60px rgba(255, 250, 205, 0.7),
+                    0 0 80px rgba(255, 250, 205, 0.4);
+            }
+        }
+
+        /* 雪花 */
+        .snowflake {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 24px;
+            animation: snowFloat 8s infinite ease-in-out;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        @keyframes snowFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+            50% { transform: translateY(-30px) rotate(180deg); opacity: 1; }
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 标题区域 */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .main-title {
+            font-size: 84px;
+            color: #d4b8e8;
+            margin: 0 auto;
+            line-height: 1.25;
+            text-shadow:
+                0 0 10px rgba(255, 255, 255, 1),
+                0 0 20px rgba(212, 184, 232, 0.8),
+                0 0 40px rgba(212, 184, 232, 0.6);
+            letter-spacing: 8px;
+            animation: titleGlow 3s infinite alternate;
+            position: relative;
+        }
+
+        @keyframes titleGlow {
+            from {
+                text-shadow:
+                    0 0 10px rgba(255, 255, 255, 1),
+                    0 0 20px rgba(212, 184, 232, 0.8),
+                    0 0 40px rgba(212, 184, 232, 0.6);
+            }
+            to {
+                text-shadow:
+                    0 0 20px rgba(255, 255, 255, 1),
+                    0 0 40px rgba(212, 184, 232, 1),
+                    0 0 60px rgba(212, 184, 232, 0.8),
+                    0 0 80px rgba(230, 200, 255, 0.6);
+            }
+        }
+
+        .subtitle {
+            font-size: 32px;
+            color: #fff;
+            text-shadow:
+                0 0 10px rgba(212, 184, 232, 0.9),
+                0 0 20px rgba(212, 184, 232, 0.7);
+            line-height: 1.25;
+            display: inline-block;
+            position: relative;
+            left: 180px;
+            letter-spacing: 4px;
+            font-weight: bold;
+        }
+
+        /* 导航模块 */
+        .nav-modules {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 40px;
+            line-height: 2.0;
+            margin-bottom: 40px;
+        }
+
+        .nav-module {
+            font-size: 32px;
+            color: #fff;
+            background-color: #7EBEFB;
+            padding: 0 30px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(126, 190, 251, 0.4);
+            font-family: 'ZCOOL KuaiLe', cursive;
+            min-width: 160px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-module:hover {
+            transform: scale(1.25);
+        }
+
+        .nav-module.active {
+            background-color: #5aa8f0;
+            box-shadow: inset 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        /* 图片画廊 */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 35px;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* 画廊项容器 */
+        .gallery-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 300px;
+            margin-top: 40px;
+        }
+
+        /* 水晶相框 */
+        .crystal-frame {
+            position: relative;
+            width: 300px;
+            height: 384px;
+            padding: 12px;
+            background-color: #B9DCED;
+            border-radius: 24px;
+            box-shadow:
+                inset 0 0 40px rgba(255, 255, 255, 0.9),
+                inset 0 0 80px rgba(220, 235, 255, 0.5),
+                0 15px 50px rgba(150, 180, 210, 0.4),
+                0 0 0 2px rgba(255, 255, 255, 0.9),
+                0 0 0 5px rgba(220, 235, 255, 0.6),
+                0 0 40px rgba(200, 220, 255, 0.4);
+            animation: frameShine 4s infinite;
+            transition: all 0.4s ease;
+        }
+
+        .crystal-frame:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow:
+                inset 0 0 50px rgba(255, 255, 255, 1),
+                inset 0 0 100px rgba(230, 245, 255, 0.7),
+                0 25px 60px rgba(150, 180, 210, 0.5),
+                0 0 0 2px rgba(255, 255, 255, 1),
+                0 0 0 5px rgba(220, 235, 255, 0.8),
+                0 0 60px rgba(220, 200, 255, 0.5);
+        }
+
+        @keyframes frameShine {
+            0%, 100% {
+                box-shadow:
+                    inset 0 0 40px rgba(255, 255, 255, 0.9),
+                    inset 0 0 80px rgba(220, 235, 255, 0.5),
+                    0 15px 50px rgba(150, 180, 210, 0.4),
+                    0 0 0 2px rgba(255, 255, 255, 0.9),
+                    0 0 0 5px rgba(220, 235, 255, 0.6),
+                    0 0 40px rgba(200, 220, 255, 0.4);
+            }
+            50% {
+                box-shadow:
+                    inset 0 0 60px rgba(255, 255, 255, 1),
+                    inset 0 0 100px rgba(230, 245, 255, 0.7),
+                    0 20px 60px rgba(150, 180, 210, 0.5),
+                    0 0 0 2px rgba(255, 255, 255, 1),
+                    0 0 0 5px rgba(220, 235, 255, 0.8),
+                    0 0 60px rgba(220, 200, 255, 0.6);
+            }
+        }
+
+        .crystal-frame::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            right: 8px;
+            bottom: 8px;
+            border-radius: 18px;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.9) 0%,
+                rgba(255, 255, 255, 0.4) 30%,
+                transparent 50%,
+                rgba(255, 255, 255, 0.3) 70%,
+                rgba(255, 255, 255, 0.8) 100%
+            );
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .crystal-frame::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 40%,
+                rgba(255, 255, 255, 0.6) 50%,
+                transparent 60%
+            );
+            animation: scan 5s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%) translateY(-100%); }
+            100% { transform: translateX(100%) translateY(100%); }
+        }
+
+        /* 画廊图片 */
+        .gallery-image {
+            width: 276px;
+            height: 360px;
+            object-fit: cover;
+            border-radius: 16px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-image:hover {
+            transform: scale(1.25);
+        }
+
+        /* 图片占位符 */
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                #eef4fa 0%,
+                #dde8f5 30%,
+                #e8f0f8 50%,
+                #d8e5f5 70%,
+                #edf3fa 100%
+            );
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .image-placeholder::before {
+            content: '✨';
+            font-size: 3.5rem;
+            opacity: 0.6;
+            animation: rotateStar 12s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+        }
+
+        @keyframes rotateStar {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* 相框角落水晶装饰 */
+        .corner {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            z-index: 3;
+        }
+
+        .corner::before {
+            content: '◆';
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 0 10px rgba(212, 184, 232, 0.8);
+        }
+
+        .corner-tl { top: 4px; left: 8px; }
+        .corner-tr { top: 4px; right: 4px; }
+        .corner-bl { bottom: 4px; left: 8px; }
+        .corner-br { bottom: 4px; right: 4px; }
+
+        
+
+        /* 图片下方文字 */
+        .item-caption {
+            font-size: 32px;
+            color: #fff;
+            text-align: center;
+            margin-top: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            display: block;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .item-caption:hover {
+            transform: scale(1.25);
+            text-decoration: underline;
+        }
+
+        /* 响应式 */
+        @media (max-width: 900px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .gallery.six-images {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .main-title {
+                font-size: 48px;
+            }
+            .subtitle {
+                font-size: 24px;
+                left: 80px;
+            }
+            .nav-module {
+                font-size: 24px;
+                padding: 10px 20px;
+            }
+            .item-caption {
+                font-size: 24px;
+            }
+            .moon {
+                width: 60px;
+                height: 60px;
+                top: 30px;
+                right: 30px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .gallery, .gallery.six-images {
+                grid-template-columns: 1fr;
+            }
+            .nav-modules {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景装饰 -->
+    <div class="bg-decoration" id="bgDecorations">
+        <!-- 黄色月亮 -->
+        <div class="moon"></div>
+    </div>
+
+    <div class="container">
+        <!-- 标题 -->
+        <header class="header">
+            <h1 class="main-title">小时候的文化记忆</h1>
+        </header>
+
+        <!-- 导航模块 -->
+        <nav class="nav-modules">
+            <a href="index.html" class="nav-module active">动画</a>
+            <a href="novels.html" class="nav-module">小说</a>
+            <a href="publications.html" class="nav-module">刊物</a>
+            <a href="games.html" class="nav-module">电子游戏</a>
+        </nav>
+
+        <!-- 图片画廊 - 8张 -->
+        <div class="gallery">
+            <div class="gallery-item">
+                <a href="detail-xiyangyang.html" style="text-decoration: none;">
+                    <div class="crystal-frame">
+                        <div class="corner corner-tl"></div>
+                        <div class="corner corner-tr"></div>
+                        <div class="corner corner-bl"></div>
+                        <div class="corner corner-br"></div>
+                        <img src="15.jpeg" alt="喜羊羊与灰太狼" class="gallery-image">
+                    </div>
+                    <div class="item-caption">喜羊羊与灰太狼</div>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="detail-lanmao.html" style="text-decoration: none;">
+                    <div class="crystal-frame">
+                        <div class="corner corner-tl"></div>
+                        <div class="corner corner-tr"></div>
+                        <div class="corner corner-bl"></div>
+                        <div class="corner corner-br"></div>
+                        <img src="16.jpg" alt="蓝猫淘气三千问" class="gallery-image">
+                    </div>
+                    <div class="item-caption">蓝猫淘气三千问</div>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="detail-hongmao.html" style="text-decoration: none;">
+                    <div class="crystal-frame">
+                        <div class="corner corner-tl"></div>
+                        <div class="corner corner-tr"></div>
+                        <div class="corner corner-bl"></div>
+                        <div class="corner corner-br"></div>
+                        <img src="17.jpg" alt="虹猫蓝兔七侠传" class="gallery-image">
+                    </div>
+                    <div class="item-caption">虹猫蓝兔七侠传</div>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="detail-huangfeng.html" style="text-decoration: none;">
+                    <div class="crystal-frame">
+                        <div class="corner corner-tl"></div>
+                        <div class="corner corner-tr"></div>
+                        <div class="corner corner-bl"></div>
+                        <div class="corner corner-br"></div>
+                        <img src="18.avif" alt="战斗王之飓风战魂" class="gallery-image">
+                    </div>
+                    <div class="item-caption">战斗王之飓风战魂</div>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="detail-leisudeng.html" style="text-decoration: none;">
+                    <div class="crystal-frame">
+                        <div class="corner corner-tl"></div>
+                        <div class="corner corner-tr"></div>
+                        <div class="corner corner-bl"></div>
+                        <div class="corner corner-br"></div>
+                        <img src="19.webp" alt="雷速登闪电冲线" class="gallery-image">
+                    </div>
+                    <div class="item-caption">雷速登闪电冲线</div>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="detail-guobao.html" style="text-decoration: none;">
+                    <div class="crystal-frame">
+                        <div class="corner corner-tl"></div>
+                        <div class="corner corner-tr"></div>
+                        <div class="corner corner-bl"></div>
+                        <div class="corner corner-br"></div>
+                        <img src="20.jpg" alt="果宝特攻" class="gallery-image">
+                    </div>
+                    <div class="item-caption">果宝特攻</div>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="detail-hanbagui.html" style="text-decoration: none;">
+                    <div class="crystal-frame">
+                        <div class="corner corner-tl"></div>
+                        <div class="corner corner-tr"></div>
+                        <div class="corner corner-bl"></div>
+                        <div class="corner corner-br"></div>
+                        <img src="21.webp" alt="憨八龟的故事" class="gallery-image">
+                    </div>
+                    <div class="item-caption">憨八龟的故事</div>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="detail-xiaoliyu.html" style="text-decoration: none;">
+                    <div class="crystal-frame">
+                        <div class="corner corner-tl"></div>
+                        <div class="corner corner-tr"></div>
+                        <div class="corner corner-bl"></div>
+                        <div class="corner corner-br"></div>
+                        <img src="22.webp" alt="小鲤鱼历险记" class="gallery-image">
+                    </div>
+                    <div class="item-caption">小鲤鱼历险记</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 动态生成背景装饰
+        const bgContainer = document.getElementById('bgDecorations');
+
+        // 生成雪花
+        for (let i = 0; i < 15; i++) {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            snowflake.innerHTML = ['❄', '❅', '❆'][Math.floor(Math.random() * 3)];
+            snowflake.style.left = Math.random() * 100 + '%';
+            snowflake.style.top = Math.random() * 100 + '%';
+            snowflake.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            snowflake.style.animationDelay = Math.random() * 6 + 's';
+            snowflake.style.animationDuration = (Math.random() * 4 + 5) + 's';
+            bgContainer.appendChild(snowflake);
+        }
+    </script>
+</body>
+</html>
